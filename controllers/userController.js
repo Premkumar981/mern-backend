@@ -4,23 +4,42 @@ import mongoose from "mongoose";
 import userModel from "../models/userModel.js";
 const SECRET = "sometext";
 
+// const register = async (req, res) => {
+// try {
+//     const { name, email, password, role } = req.body;
+//     const hashedpwd = await bcrypt.hash(password, 10);
+//     const user = {
+//     name,
+//     email,
+//     password: hashedpwd,
+//     role,
+//     };
+//     const result = await userModel.create(user);
+//     res.status(201).json(result);
+// } catch (err) {
+//     console.log(err);
+//     res.status(400).json({ message: "Something went wrong" });
+//     }
+// }
 const register = async (req, res) => {
-try {
-    const { name, email, password, role } = req.body;
-    const hashedpwd = await bcrypt.hash(password, 10);
-    const user = {
-    name,
-    email,
-    password: hashedpwd,
-    role,
-    };
-    const result = await userModel.create(user);
-    res.status(201).json(result);
-} catch (err) {
-    console.log(err);
-    res.status(400).json({ message: "Something went wrong" });
+    try {
+        const { firstName, lastName, email, password, role, status } = req.body;
+        const hashedpwd = await bcrypt.hash(password, 10);
+        const user = {
+        firstName,
+        lastName,
+        email,
+        password: hashedpwd,
+        role,
+        status,
+        };
+        const result = await userModel.create(user);
+        res.status(201).json(result);
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ message: "Something went wrong" });
+        }
     }
-}
 
 const userUpdate = async (req,res) => {
 try {
@@ -38,7 +57,8 @@ const userDelete = async (req, res) => {
 try {
     const id = req.params.id;
     const result = await userModel.findByIdAndDelete(id);
-    result.status(200).json(result);
+    // result.status(200).json(result);
+    res.status(200).json({ message: "Deleted Successfully!" });
 } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Something went wrong" });
