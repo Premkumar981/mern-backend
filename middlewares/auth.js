@@ -9,13 +9,13 @@ try {
     next();
 } catch (err) {
     console.log(err);
-    return res.json({ message: "Invalid Token" });
+    return res.json({ message: "Access Denied" });
 }
 };
 
 const authorize = (role) => {
 return (req, res, next) => {
-    if (role === req.role) {
+    if (req.role === role) {
     next();
     } else {
     return res.json({ message: "Unauthorized access" });

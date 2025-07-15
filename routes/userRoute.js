@@ -1,5 +1,6 @@
 import express from "express";
 import { authenticate, authorize } from "../middlewares/auth.js";
+const Router = express.Router();
 import {
     register,
     login,
@@ -11,8 +12,6 @@ import {
     getUser,
     addUser,
 } from "../controllers/userController.js";
-
-const Router = express.Router();
 
 //user routes
 Router.post("/register", register);
